@@ -1,6 +1,6 @@
+var qs = '/' + window.location.search.slice(window.location.search.indexOf('?') + 4);
+var socket = io(qs);
 $(document).ready(function() {
-  // var qs = '/' + window.location.search.slice(window.location.search.indexOf('?') + 4);
-  // var socket = io(qs);
   var ctrlObj = {
     gameName: 'snake',
     controllers: {

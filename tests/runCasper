@@ -1,0 +1,8 @@
+export NODE_ENV=test
+nohup node server.js &
+export NODE_PSID=$!
+sleep 3
+node_modules/.bin/casperjs --ssl-protocol=any --ignore-ssl-errors=yes test "$1"
+STATUS=$?
+kill $NODE_PSID
+if [ $STATUS != 0 ]; then exit 1; fi;

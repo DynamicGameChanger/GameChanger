@@ -171,8 +171,8 @@ Head.prototype.moveBody = function(x, y) {
 
 Head.prototype.render = function() {
   this.node.offset({
-    top: (this.size * this.y) + head.elPosY,
-    left: (this.size * this.x) + head.elPosX
+    top: (this.size * this.y) + this.elPosY,
+    left: (this.size * this.x) + this.elPosX
   });
 };
 

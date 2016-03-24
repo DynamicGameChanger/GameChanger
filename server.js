@@ -10,7 +10,7 @@ var express = require('express'),
   qs = require('qs'),
   mongoURI = 'mongodb://localhost/GameUsers',
   UserCtrl = require('./authenticate/userController'),
-  SessionCtrl = require('./authenticate/sessionController')
+  SessionCtrl = require('./authenticate/sessionController'),
 mongoose = require('mongoose');
 var q = '';
 
@@ -65,6 +65,7 @@ function startSocket(nameSpace) {
     });
 
     socket.on('chartData', data => {
+      // need to figure out how to get controller to join room to listen from emits
       nsp.emit('chartData', data);
     });
 
@@ -93,12 +94,12 @@ app.get('/controller3', function(req, res) {
 
 app.get('/snake', function(req, res) {
   res.sendFile(path.join(__dirname, '/games/snake/snake.html'));
-
+  client = 'snake'
 });
 
 app.get('/marble', function(req, res) {
   res.sendFile(path.join(__dirname, '/games/marble/index.html'));
-
+  client = 'marble'
 });
 
 app.get('*.js', function(req, res) {
