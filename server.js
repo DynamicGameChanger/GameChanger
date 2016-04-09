@@ -89,14 +89,6 @@ function getDirectories(srcPath) {
   });
 }
 
-// app.get('/splash', (req, res) => {
-//   const q = `/${req.query.id}`;
-//   if (!Sockets.roomsObj[q]) {
-//     Sockets.startSocket(q, io);
-//   }
-//   res.sendFile(path.join(__dirname, '/splash.html'));
-// })
-
 app.get('/splashInfo', (req, res) => {
   const q = `/${req.query.id}`;
   console.log('Socket id from splash: ', q);
