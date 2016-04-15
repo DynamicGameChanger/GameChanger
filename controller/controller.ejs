@@ -25,32 +25,33 @@
         </ul>
       </div>
     </header>
+    <!--header end-->
 
+
+    <!-- modal info when Game Change clicked -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel">Vicissitutor</h4>
           </div>
-
           <div class="modal-body">
             <h2>Instructions</h2>
             <h4 style='margin-left: 35px; color: #428bca'>1. Select a game to control by clicking on the game name. <br>
               2. Click on "Copy Client URL" button. <br>
               3. Give url to client to connect.
             </h4>
-
             <form>
+
               <h2>Game Descriptions</h2>
               <div id="gameDescriptions">
               </div>
+
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
               </div>
             </form>
-
           </div>
         </div>
       </div>
@@ -59,7 +60,10 @@
     <aside>
       <div id="sidebar" class="nav-collapse ">
         <ul class="sidebar-menu" id="nav-accordion">
-          <p class="centered"><a href="#"><img src="logo.jpg" class="img" width="60"></a></p>
+
+          <p class="centered">
+            <a href="#"><img src="logo.jpg" class="img" width="60"></a>
+          </p>
           <% if (username) { %>
             <h5 class="centered"><%= username %></h5>
             <% } %>
@@ -122,7 +126,10 @@
               </div>
 
               <div class='module' id='controls'>
+
+
                 <table id='controllers'>
+
                   <center>
                     <tr width='100%'>
                     </tr>
@@ -133,11 +140,12 @@
             </div>
           </div>
         </div>
+        <!-- /row -->
 
         <footer class="site-footer">
           <div class="text-center">
             Vicissitutor
-            <a href="#" class="go-top">
+            <a href="index.html#" class="go-top">
               <i class="fa fa-angle-up"></i>
             </a>
           </div>
@@ -150,28 +158,9 @@
   <script src='/socket.io/socket.io.js'></script>
   <script src="controller/js/jquery.js"></script>
   <script src="controller/js/bootstrap.min.js"></script>
-  <!-- <script class="include" type="text/javascript" src="controller/js/jquery.dcjqaccordion.2.7.js"></script> -->
+  <script class="include" type="text/javascript" src="controller/js/jquery.dcjqaccordion.2.7.js"></script>
   <script src="controller/js/jquery.sparkline.js"></script>
 
-  <!-- <script type="text/javascript">
-    $(document).ready(function() {
-      var unique_id = $.gritter.add({
-        // (string | mandatory) the heading of the notification
-        title: 'Getting Started',
-        // (string | mandatory) the text inside the notification
-        text: '1. Copy URL from the left nav bar and send to client. <br>2. To change games click on "Change Game" in the nav bar. ',
-        // (string | optional) the image to display on the left
-        image: 'logo.jpg',
-        // (bool | optional) if you want it to fade out on its own or just sit there
-        sticky: true,
-        // (int | optional) the time you want it to be alive for before fading out
-        time: '',
-        // (string | optional) the class name you want to apply to that specific message
-        class_name: 'my-sticky-class'
-      });
-      return false;
-    });
-  </script> -->
   <script>
     $(document).ready(function() {
      $('#change_game').click();
@@ -179,10 +168,11 @@
 
     var userId = window.location.search.slice(window.location.search.indexOf('?') + 4);
     var qs = '/' + userId
+
     var socket = io(qs);
     var url = window.location.origin + '/game?id=' + userId;
-
     $('#urltocopy').text(url);
+
     $('#copyurl').click(function() {
       var range = document.createRange();
       var selection = window.getSelection();
@@ -217,9 +207,12 @@
     $.get('/gameDescriptions', (data) => {
       gameDescriptions = data;
       for (var i in data) {
+
         $('#gameDescriptions').append('<h3></h3><a href="#"  onclick="selectGame(this)" class="gameSelector" id="' + i + '" data-dismiss="modal">' + data[i].name + '</a></h3><p>' + data[i].description + '</p>')
       }
+
     });
+
 
     // builds controls and changes game
     function selectGame(game) {
@@ -227,10 +220,13 @@
       socket.emit('changeGame', [game.id, userId]);
     }
 
+
     var currentGame, buttonsPerCell = 3;
 
     function buildControls(game) {
       if (currentGame !== game) {
+        // $('.graphButtons').remove();
+        // graphButtonsOnPage = false;
         $('#controllers tr td').remove();
         buildGraphButtons(gameDescriptions[game].dataControlObject);
         ctrlObj = gameDescriptions[game].controlObject;
@@ -315,11 +311,16 @@
       return 'data:image/svg+xml;charset=utf-8,' + foreignObject;
     }
 
+
+
     $('.logout').click(function() {
       $.get('/logout')
     })
-
+    $('.zero-clipboard').tooltip({
+      content: 'Copied!'
+    });
   </script>
+
   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
   <script src="controller/src/graph.js" charset="utf-8"></script>
   <script src='controller/src/jquery.knob.js' charset="utf-8"></script>
