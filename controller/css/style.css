@@ -33,6 +33,11 @@ a, a:hover, a:focus {
   margin-top: 5%;
 }
 
+#form {
+  width: 100%;
+  border: .2px solid #aab2bd;
+}
+
 h3{
   margin: 10px auto;
   text-align: center;
@@ -76,6 +81,16 @@ h1 {
 }
 #button {
   margin-left: 20px;
+}
+
+.homelogin {
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0px 3px 2px #aab2bd;
+  background-color: white;
+  position: fixed;
+  right: 5px;
+  width: 32.6%;
 }
 
 .selectedButton {
@@ -567,7 +582,7 @@ ul.sidebar-menu li a.active i {
 
 .wrapper {
     display: inline-block;
-    margin-top: 60px;
+    margin-top: 45px;
     padding-left: 15px;
     padding-right: 15px;
     padding-bottom: 15px;
@@ -1788,12 +1803,17 @@ PANELS CONFIGURATIONS
 /* showcase background */
 .showback {
 	background: #ffffff;
-	padding: 15px;
+	/*padding: 5px;*/
 	margin-bottom: 15px;
+  margin-left: -10px;
 	box-shadow: 0px 3px 2px #aab2bd;
+  height: 100%;
 }
 
-
+.padd {
+  padding: 10px;
+  height: 100%;
+}
 
 /* Calendar Events - Calendar.html*/
 .external-event {
