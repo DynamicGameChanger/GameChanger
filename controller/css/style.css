@@ -33,16 +33,9 @@ a, a:hover, a:focus {
   margin-top: 5%;
 }
 
-#formContainer {
-  width: 100%;
-  position: relative;
-}
-
 #form {
-  /*margin-left: 5%;*/
   width: 100%;
   border: .2px solid #aab2bd;
-  /*display: inline-block;*/
   position: fixed;
 }
 
