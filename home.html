@@ -73,7 +73,7 @@
           		            </label>
                           <!-- <input class="btn btn-theme btn-block" id='submit' type="submit" value='SIGN IN'><i class='fa fa-lock'></i></input> -->
           		            <button class="btn btn-theme btn-block" id='submit' type="submit"><i class="fa fa-lock"></i> SIGN IN</button>
-<!--
+<!--   This is for oAuth
           		            <div class="login-social-link centered">
           		            <p>or you can sign in via your social network</p>
           		                <button class="btn btn-facebook" type="submit"><i class="fa fa-facebook"></i> Facebook</button>
@@ -134,6 +134,7 @@
 
   <script>
       //custom select box
+      //authentication logic
       $('#form').on('submit', function(e) {
         e.preventDefault();
         var userInfo = {
@@ -150,7 +151,9 @@
           success: function(userId) {
             console.log(userId);
             $('.modal-body').empty();
-            $('.modal-body').append('<center><h2>Select a role!</h2></center>')
+            $('.modal-body').append('<center><h2>Select a role!</h2></center>');
+
+            //Once verified, update session and modal
             $.get('/splashInfo?id=' + userId.userId, data => {
               var buttons = 0;
               for (var users in data.connections) {
