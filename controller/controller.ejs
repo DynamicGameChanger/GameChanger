@@ -223,6 +223,7 @@
 
     var currentGame, buttonsPerCell = 3;
 
+
     function buildControls(game) {
       if (currentGame !== game) {
         // $('.graphButtons').remove();
@@ -287,8 +288,6 @@
       var img = new Image();
 
       img.id = 'screenShare';
-
-
       img.src = canvas.toDataURL('image/png')
 
       $('#screenCast').get(0).appendChild(img);
