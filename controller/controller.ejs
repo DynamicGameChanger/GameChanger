@@ -17,13 +17,15 @@
       <div class="sidebar-toggle-box">
         <div class="fa fa-bars"></div>
       </div>
+
       <a href="#" class="logo"><b>VICISSITUTOR</b></a>
+
       <div class="top-menu">
         <ul class="nav pull-right top-menu">
-
           <li><a class="logout" href="/">Logout</a></li>
         </ul>
       </div>
+
     </header>
     <!--header end-->
 
@@ -32,27 +34,30 @@
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
+
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel">Vicissitutor</h4>
           </div>
+
           <div class="modal-body">
             <h2>Instructions</h2>
             <h4 style='margin-left: 35px; color: #428bca'>1. Select a game to control by clicking on the game name. <br>
               2. Click on "Copy Client URL" button. <br>
               3. Give url to client to connect.
             </h4>
-            <form>
 
+            <form>
               <h2>Game Descriptions</h2>
-              <div id="gameDescriptions">
-              </div>
+              <div id="gameDescriptions"></div>
 
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
               </div>
             </form>
+
           </div>
+
         </div>
       </div>
     </div>
@@ -65,23 +70,23 @@
             <a href="#"><img src="logo.jpg" class="img" width="60"></a>
           </p>
           <% if (username) { %>
-            <h5 class="centered"><%= username %></h5>
+          <h5 class="centered"><%= username %></h5>
             <% } %>
 
-              <li class="mt">
-                <a id='change_game' href="javascript:;" data-toggle="modal" data-target="#myModal">
-                  <i class="fa fa-desktop"></i>
-                  <span>Change Game</span>
-                </a>
-              </li>
+          <li class="mt">
+            <a id='change_game' href="javascript:;" data-toggle="modal" data-target="#myModal">
+              <i class="fa fa-desktop"></i>
+              <span>Change Game</span>
+            </a>
+          </li>
 
-              <li class="sub-menu">
-                <a href='javascript:;' id='copyurl'>
-                  <div class='zero-clipboard'>
-                    <i class="fa fa-copy"></i>
-                    <span class='btn-clipboard'>Copy Client URL</span></div>
-                </a>
-              </li>
+          <li class="sub-menu">
+            <a href='javascript:;' id='copyurl'>
+              <div class='zero-clipboard'>
+                <i class="fa fa-copy"></i>
+                <span class='btn-clipboard'>Copy Client URL</span></div>
+            </a>
+          </li>
 
         </ul>
       </div>
@@ -89,51 +94,44 @@
 
     <section id="main-content">
       <section class="wrapper">
-
         <div class="row mt">
+
           <div class="col-md-6 col-sm-6 mb">
             <div class="white-panel pn">
+
               <div class="white-header">
                 <h5>Performance</h5>
               </div>
 
-              <center>
-                <div id="graph"></div>
-              </center>
-              <center>
-                <div id='graphOptions'></div>
-              </center>
+              <center><div id="graph"></div></center>
+
+              <center><div id='graphOptions'></div></center>
 
             </div>
           </div>
 
           <div class="col-md-6 col-sm-6 mb">
             <div class="white-panel pn">
+
               <div class="white-header">
                 <h5>Clients View</h5>
               </div>
-              <center>
-                <div class='module' id='screenCast'></div>
-              </center>
+
+              <center><div class='module' id='screenCast'></div></center>
 
             </div>
           </div>
 
           <div class="col-md-12 mb">
             <div id='sheup' class="white-panel pn">
+
               <div class="white-header">
                 <h5>Controllers</h5>
               </div>
 
               <div class='module' id='controls'>
-
-
                 <table id='controllers'>
-
-                  <center>
-                    <tr width='100%'>
-                    </tr>
-                  </center>
+                  <center><tr width='100%'></tr></center>
                 </table>
               </div>
 
@@ -154,6 +152,7 @@
       </section>
     </section>
   </section>
+  
   <p id='urltocopy' style='font-size:1px;'></p>
   <script src='/socket.io/socket.io.js'></script>
   <script src="controller/js/jquery.js"></script>
