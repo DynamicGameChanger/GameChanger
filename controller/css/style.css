@@ -33,9 +33,17 @@ a, a:hover, a:focus {
   margin-top: 5%;
 }
 
+#formContainer {
+  width: 100%;
+  position: relative;
+}
+
 #form {
+  /*margin-left: 5%;*/
   width: 100%;
   border: .2px solid #aab2bd;
+  /*display: inline-block;*/
+  position: fixed;
 }
 
 h3{
@@ -81,16 +89,6 @@ h1 {
 }
 #button {
   margin-left: 20px;
-}
-
-.homelogin {
-  padding: 15px;
-  margin-bottom: 15px;
-  box-shadow: 0px 3px 2px #aab2bd;
-  background-color: white;
-  position: fixed;
-  right: 5px;
-  width: 32.6%;
 }
 
 .selectedButton {
