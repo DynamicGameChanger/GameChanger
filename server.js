@@ -41,44 +41,41 @@ app.get('/logout', (req, res) => {
 });
 
 app.get('/gameDescriptions', (req, res) => {
-  getDirectories('./games').then(files => {
-    var descriptions = getDescriptions(files)
-    return descriptions
+  getDirectories('./games').then(files => { 
+    return getDescriptions(files);
   }).then(data => {
     res.json(data);
   });
-})
+});
 
 // get the description.json from all the game folders
 
 function getDescriptions(games) {
-  let gameDescs = {};
-  let descs = [];
+  const gameDescs = {};
+  const descs = [];
 
   games.forEach((game) => {
-    var gameDesc = new Promise((resolve, reject) => {
-
-      fs.readFile(path.join('./games/' + game + '/description.json'), 'utf8', (err, data) => {
+    const gameDesc = new Promise((resolve, reject) => {
+      fs.readFile(path.join(`./games/${game}/description.json`), 'utf8', (err, data) => {
         if (err) return reject(err);
-        resolve(data);
+        return resolve(data);
       });
     });
     descs.push(gameDesc);
-
-  })
+  });
 
   return Promise.all(descs).then(values => {
     values.forEach((value, index) => {
-      gameDescs[games[index]] = JSON.parse(value)
-    })
+      gameDescs[games[index]] = JSON.parse(value);
+    });
     return gameDescs;
-  })
+  });
 }
 
 // find all games that exist and return array of folder names
 function getDirectories(srcPath) {
-  return new Promise((resolve, reject) => {
-    var files = fs.readdirSync(srcPath).filter(function(file) {
+  return new Promise((resolve) => {
+    const files = fs.readdirSync(srcPath).filter(function(file) {
       return fs.statSync(path.join(srcPath, file)).isDirectory();
     });
     resolve(files);
@@ -87,35 +84,35 @@ function getDirectories(srcPath) {
 
 app.get('/splashInfo', (req, res) => {
   const q = `/${req.query.id}`;
-  console.log('Socket id from splash: ', q);
+  // console.log('Socket id from splash: ', q);
   if (!Sockets.roomsObj[q]) {
     Sockets.startSocket(q, io);
   }
   res.json(Sockets.roomsObj[q]);
-})
+});
 
 
 app.get('/controller', (req, res) => {
-    const q = `/${req.query.id}`;
-    let prof = '';
-    User.findOne({
-      _id: req.query.id
-    }, (err, doc) => {
-      if (doc) {
-        prof = doc.username;
-      }
-    }).then(() => {
-      if (SessionCtrl.isLoggedIn(req, res)) {
-        return res.render('./../controller/controller', {
-          username: prof,
-        });
-      }
-      return res.send('Please login');
-    });
+  // const q = `/${req.query.id}`;
+  let prof = '';
+  User.findOne({
+    _id: req.query.id,
+  }, (err, doc) => {
+    if (doc) {
+      prof = doc.username;
+    }
+  }).then(() => {
+    if (SessionCtrl.isLoggedIn(req, res)) {
+      return res.render('./../controller/controller', {
+        username: prof,
+      });
+    }
+    return res.send('Please login');
+  });
 });
 
 app.get('/game', (req, res) => {
-  let nameOfGame = Sockets.roomsObj['/' + req.query.id].gameName;
+  const nameOfGame = Sockets.roomsObj[`/${req.query.id}`].gameName;
   res.sendFile(path.join(__dirname, `/games/${nameOfGame}/index.html`));
 });
 
@@ -146,7 +143,7 @@ app.get('*.jpg', (req, res) => {
 
 app.get('*.png', (req, res) => {
   res.writeHead(200, {
-    'content-type': 'image/png'
+    'content-type': 'image/png',
   });
   res.end(fs.readFileSync(path.join(__dirname, req.url)));
 });

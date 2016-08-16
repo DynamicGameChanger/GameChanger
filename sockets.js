@@ -1,8 +1,8 @@
 'use strict';
-const buildPic = require('./buildPic');
-const user = require('./authenticate/userModel');
+// const buildPic = require('./buildPic');
+// const user = require('./authenticate/userModel');
 
-let roomsObj = {};
+const roomsObj = {};
 
 function startSocket(nameSpace, io) {
   const nsp = io.of(nameSpace);
@@ -12,9 +12,9 @@ function startSocket(nameSpace, io) {
     roomsObj[nameSpace] = {
       gameName: 'snake',
       connections: {
-        'controller': '',
-        'player': ''
-      }
+        controller: '',
+        player: '',
+      },
     };
   }
 
@@ -27,7 +27,6 @@ function startSocket(nameSpace, io) {
 
       if (roomsObj[nameSpace].connections.controller === '') {
         roomsObj[nameSpace].connections.controller = socket.id;
-
       } else if (roomsObj[nameSpace].connections.player === '') {
         roomsObj[nameSpace].connections.player = socket.id;
       }
@@ -48,32 +47,29 @@ function startSocket(nameSpace, io) {
     });
 
     socket.on('chartData', data => {
-
       nsp.emit('chartData', data);
     });
 
     socket.on('changeGame', (e) => {
-      roomsObj['/' + e[1]].gameName = e[0];
+      roomsObj[`/${e[1]}`].gameName = e[0];
       nsp.emit('changeGame', e[0]);
     });
 
     socket.on('disconnect', () => {
       let deletedSocketCount = 0;
-      for (let key in roomsObj[nameSpace].connections) {
-
-        if(roomsObj[nameSpace].connections[key] === '') {
+      for (const key in roomsObj[nameSpace].connections) {
+        if (roomsObj[nameSpace].connections[key] === '') {
           deletedSocketCount++;
         }
 
         if (roomsObj[nameSpace].connections[key] === socket.id) {
           roomsObj[nameSpace].connections[key] = '';
-        };
+        }
       }
 
       if (deletedSocketCount === 2) {
         delete roomsObj[nameSpace];
       }
-      
       nsp.connections--;
       socket.disconnect();
     });
@@ -83,4 +79,4 @@ function startSocket(nameSpace, io) {
 module.exports = {
   roomsObj: roomsObj,
   startSocket: startSocket
-}
+};
