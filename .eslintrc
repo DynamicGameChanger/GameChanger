@@ -9,5 +9,6 @@
     "__dirname": true
   },
   "rules": {
+    "arrow-body-style": ["error", "always"],
   }
 }
