@@ -25,32 +25,8 @@ app.use(cors());
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '/home.html'));
-});
-
-app.post('/login', UserCtrl.verify);
-io.sockets.setMaxListeners(100);
-
-app.get('/logout', (req, res) => {
-  Session.remove({
-    cookieId: req.cookies.SSID,
-  });
-  res.clearCookie('SSID');
-  return res.redirect('/');
-});
-
-app.get('/gameDescriptions', (req, res) => {
-  getDirectories('./games').then(files => { 
-    return getDescriptions(files);
-  }).then(data => {
-    res.json(data);
-  });
-});
-
 // get the description.json from all the game folders
-
-function getDescriptions(games) {
+const getDescriptions = (games) => {
   const gameDescs = {};
   const descs = [];
 
@@ -70,21 +46,20 @@ function getDescriptions(games) {
     });
     return gameDescs;
   });
-}
+};
 
 // find all games that exist and return array of folder names
-function getDirectories(srcPath) {
+const getDirectories = (srcPath) => {
   return new Promise((resolve) => {
-    const files = fs.readdirSync(srcPath).filter(function(file) {
+    const files = fs.readdirSync(srcPath).filter(file => {
       return fs.statSync(path.join(srcPath, file)).isDirectory();
     });
     resolve(files);
   });
-}
+};
 
 app.get('/splashInfo', (req, res) => {
   const q = `/${req.query.id}`;
-  // console.log('Socket id from splash: ', q);
   if (!Sockets.roomsObj[q]) {
     Sockets.startSocket(q, io);
   }
@@ -93,7 +68,6 @@ app.get('/splashInfo', (req, res) => {
 
 
 app.get('/controller', (req, res) => {
-  // const q = `/${req.query.id}`;
   let prof = '';
   User.findOne({
     _id: req.query.id,
@@ -108,6 +82,29 @@ app.get('/controller', (req, res) => {
       });
     }
     return res.send('Please login');
+  });
+});
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '/home.html'));
+});
+
+app.post('/login', UserCtrl.verify);
+io.sockets.setMaxListeners(100);
+
+app.get('/logout', (req, res) => {
+  Session.remove({
+    cookieId: req.cookies.SSID,
+  });
+  res.clearCookie('SSID');
+  return res.redirect('/');
+});
+
+app.get('/gameDescriptions', (req, res) => {
+  getDirectories('./games').then(files => {
+    return getDescriptions(files);
+  }).then(data => {
+    res.json(data);
   });
 });
 
