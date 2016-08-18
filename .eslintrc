@@ -10,5 +10,6 @@
   },
   "rules": {
     "arrow-body-style": ["error", "always"],
+    "max-len": "off",
   }
 }
